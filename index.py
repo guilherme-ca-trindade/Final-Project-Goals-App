@@ -7,6 +7,9 @@ msg= 'Welcome to your Goals app! =) ' \
 goals=[]
 
 def load_goals():
+    """This function load all the goals existing, gathering the global goals.
+    load_goals will try to open the goals.json and the loads these goals.
+    The Exception will raise as goals being a empty tuple, if the file doesn't exist or cannot be read"""
     global goals
     try:
         with open("goals.json","r",encoding="utf-8") as f:
@@ -15,10 +18,14 @@ def load_goals():
         goals=[]
 
 def save_goals():
+    """This function save the goals in the goals.json. """
     with open("goals.json","w",encoding="utf-8") as f:
         json.dump(goals, f, ensure_ascii=False, indent=2)
 
 def create_goals():
+    """This function create a goal typed by the user, by using the questionary.text (instead of simple input).
+    The goal can't be empty, that's why have a if not goal, showing a message for the user and returning.
+    If the user typed their goal, it'll append the goal in the global goals(that's our goals.json)"""
     global msg
     goal= questionary.text('Type the goal you want to create: ').ask()
     if not goal:
@@ -28,9 +35,14 @@ def create_goals():
     msg = "Goal created with success!"
 
 def list_goals():
+    """This function list all the goals registered in the goals.json. Also, you can select your goals by marking the as finished,
+    or unmarked them as opened again. If there are no goals, it'll show to the user and return it.
+    The user can select and mark the goals because of the questionary.checkbox. 
+    In case the user mark or do not mark any goal, it will prompt the msg accordingly ('No goal selected' if not answers,
+    'Goals selected as finished' if the user mark one or more of the goals) """
     global msg
     if not goals:
-        msg = "Doesn't exist goals currently"
+        msg = "There are no existing goals currently"
         return
     choices = [questionary.Choice(g['value'], checked=g['checkend'])
                for g in goals]
@@ -50,6 +62,8 @@ def list_goals():
     msg = "Goal(s) selected as finished!"
 
 def finished_goals():
+    """This function shows all the finished goals (marked by the user).
+    It'll show messages for the users in case that are no goals at all or if there are no finished goals at the moment."""
     global msg
     if not goals:
         msg = "Doesn't exist goals currently"
@@ -64,13 +78,16 @@ def finished_goals():
     ).ask()
 
 def open_goals():
+    """This function shows all the goals opened (created and unmarked by the user)
+    Similar to finished_goals function, this one will show messages for the user in case that are no goals currently or if there are no 
+    open goals currently."""
     global msg
     if not goals:
         msg = "Doesn't exist goals currently"
         return
     open = [g for g in goals if not g['checkend']]
     if not open:
-        msg = "Doesn't exist open goals at moment =("
+        msg = "Doesn't exist open goals at the moment =("
         return
     questionary.select(
         f"Open Goals: {len(open)}",
@@ -78,6 +95,10 @@ def open_goals():
     ).ask()
 
 def delete_goals():
+    """This function can delete all the existing goals (open or finished), by erasing the goal from the goals.json.
+    Similar to open_goals and finished_goals, this function will prompt messages for the user in case if there are no goals currently.
+    It'll also prompt a message if there are no goals selected to delete.
+    TO delete, the function is using the questionary.checkbox to mark the goals the user wants to delete."""
     global msg, goals
     if not goals:
         msg = "Doesn't exist goals currently"
@@ -94,6 +115,9 @@ def delete_goals():
     msg = "Goal(s) deleted with success! "
 
 def show_msg():
+    """This function as the function to show the messages for the user, getting the right message during the code.
+    Instead of using several print statements, it'll use a global message, that will be showed to the user, and redefined to a empty string ' ',
+    when then showed again when the variable is redefined by the code. """
     os.system('clear')
     global msg
     if msg:
@@ -102,6 +126,12 @@ def show_msg():
         msg = ''
 
 def main():
+    """This function represents the main function, gathering all the functions together to make the Menu.
+    Firstly, it load the goals. Them it has a infinite loop in the while True, that's our Menu, showing message and saving the goals,
+    and after this, we have a questionary.select to show all the options that the user can selected, and each option redirect the user 
+    for the correct function.
+    To redirect the user for this, it is used if and elif functions to address the option to the function.
+    The program only finishes if the user select to Exit the program, then breaking the while True loop."""
     load_goals()
     while True:
         show_msg()

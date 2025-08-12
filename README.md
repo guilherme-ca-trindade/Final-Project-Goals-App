@@ -1,4 +1,5 @@
-🎯 Goals App
+# 🎯 Goals App
+
 Welcome to the Goals App — a simple, interactive command-line tool to help you manage your personal goals with ease. Create, list, mark as finished, and delete goals using a friendly interface powered by questionary and emoji-enhanced prompts.
 
 📦 Features
@@ -12,7 +13,7 @@ Welcome to the Goals App — a simple, interactive command-line tool to help you
 
 🛠️ Installation
 Before running the app, make sure you have Python 3 installed. Then, install the required dependencies:
-pip install questionary emoji
+> pip install questionary emoji
 
 
 ▶️ Usage

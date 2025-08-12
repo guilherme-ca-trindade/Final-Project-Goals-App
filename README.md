@@ -1,4 +1,5 @@
-🎯 Goals App
+# 🎯 Goals App
+
 Welcome to the Goals App — a simple, interactive command-line tool to help you manage your personal goals with ease. Create, list, mark as finished, and delete goals using a friendly interface powered by questionary and emoji-enhanced prompts.
 
 📦 Features

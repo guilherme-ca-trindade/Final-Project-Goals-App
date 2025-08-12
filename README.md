@@ -12,7 +12,7 @@ Welcome to the Goals App — a simple, interactive command-line tool to help you
 
 🛠️ Installation
 Before running the app, make sure you have Python 3 installed. Then, install the required dependencies:
-pip install questionary emoji
+> pip install questionary emoji
 
 
 ▶️ Usage

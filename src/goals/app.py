@@ -4,6 +4,10 @@ import questionary
 from emoji import emojize
 from time import sleep
 
+DATA_DIR = os.path.join(os.path.expanduser("~"), ".goals_app")
+os.makedirs(DATA_DIR, exist_ok=True)
+GOALS_FILE = os.path.join(DATA_DIR, "goals.json")
+
 msg = emojize('Welcome to your Goals app! 😁 \nHere you can create, list, mark and delete your goals!',)
 goals=[]
 
